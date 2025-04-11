@@ -1,6 +1,6 @@
 # IIS Vaje
 
-This repository contains exercises and assignments for the **IIS (Informacijski Inženirski Sistemi)** course.
+This repository contains exercises and assignments for the **IIS (Inženiring Inteligentnih Sistemov)** course.
 
 ## 📚 Contents
 
