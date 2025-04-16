@@ -49,6 +49,9 @@ def preprocess_air_data():
         df = df.replace("", np.nan)
         df = df.replace("<1", 1)
         df = df.replace("<2", 2)
+        
+        # Create the output directory if it doesn't exist
+        os.makedirs("data/preprocessed/air", exist_ok=True)
 
         # Save the DataFrame to a CSV file
         csv_path = f"data/preprocessed/air/{sifra}.csv"
