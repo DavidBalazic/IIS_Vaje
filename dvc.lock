@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  fetch:
+    cmd: "poetry run python src/data/fetch_air_data.py\ngit commit -am \"Updated raw
+      air data on `date` with DVC pipeline and GitHub workflows\" || true\ngit push
+      || true\ndvc push || true\n"
+    deps:
+    - path: src/data/fetch_air_data.py
+      hash: md5
+      md5: ba9d7ad34a88c85d72fdfdc92139280a
+      size: 956
+    params:
+      params.yaml:
+        fetch.url: https://www.arso.gov.si/xml/zrak/ones_zrak_urni_podatki_7dni.xml
+    outs:
+    - path: data/raw/air/air_data.xml
+      hash: md5
+      md5: ca59262ba45e0a8ab441ed27eecfb86d
+      size: 1150921
