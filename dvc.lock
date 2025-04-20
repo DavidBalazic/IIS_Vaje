@@ -2,8 +2,8 @@ schema: '2.0'
 stages:
   fetch:
     cmd: "poetry run python src/data/fetch_air_data.py\ngit commit -am \"Updated raw
-      air data on `date` with DVC pipeline and GitHub workflows\" || true\ngit push
-      || true\ndvc push || true\n"
+      air data on `date` with DVC pipeline and GitHub workflows\" || True\ngit push
+      || True\ndvc push || True\n"
     deps:
     - path: src/data/fetch_air_data.py
       hash: md5
@@ -15,5 +15,5 @@ stages:
     outs:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: ca59262ba45e0a8ab441ed27eecfb86d
-      size: 1150921
+      md5: 825b51ac0a39c39ca80f2858bb1e3440
+      size: 1150089
