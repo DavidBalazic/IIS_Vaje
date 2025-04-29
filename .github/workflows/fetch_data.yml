@@ -52,6 +52,16 @@ jobs:
           dvc push
           git add dvc.lock
           git commit -m "Update dvc.lock on `date` with GitHub Actions" || true
+
+      - name: Deploy DataDocs to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: "gx/uncommitted/data_docs/local_site"
+          production-deploy: true
+          deploy-message: "Deploy from GitHub Actions"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         
       - name: Push changes
         uses: ad-m/github-push-action@master
