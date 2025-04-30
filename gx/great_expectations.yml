@@ -106,7 +106,7 @@ fluent_datasources:
       air_quality_data:
         type: csv
         batching_regex: .*\.csv
-    base_directory: ..\data\preprocessed\air
+    base_directory: ../data/preprocessed/air
 notebooks:
 include_rendered_content:
   globally: false
