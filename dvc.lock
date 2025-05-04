@@ -13,15 +13,15 @@ stages:
     outs:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: 33c7b627120612abdf0f0b62d27a0c5d
-      size: 1151665
+      md5: 14697f44018143bcab3e495c3c98f1bc
+      size: 1152003
   preprocess:
     cmd: poetry run python src/data/preprocess_air_data.py
     deps:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: 33c7b627120612abdf0f0b62d27a0c5d
-      size: 1151665
+      md5: 14697f44018143bcab3e495c3c98f1bc
+      size: 1152003
     - path: src/data/preprocess_air_data.py
       hash: md5
       md5: 53ccf6de4ee529e1e5de6475b322013f
@@ -29,20 +29,20 @@ stages:
     outs:
     - path: data/preprocessed/air
       hash: md5
-      md5: d59afbc496f6a5877319fdc7320b421a.dir
-      size: 347140
+      md5: aec174a363cd85423f89de84fecb8915.dir
+      size: 359698
       nfiles: 23
   validate:
     cmd: "cd gx && poetry run python run_checkpoint.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: d59afbc496f6a5877319fdc7320b421a.dir
-      size: 347140
+      md5: aec174a363cd85423f89de84fecb8915.dir
+      size: 359698
       nfiles: 23
     outs:
     - path: gx/uncommitted/data_docs/local_site
       hash: md5
-      md5: 32e7a8b87a6f96886cd90d1aca554d14.dir
+      md5: 0d660e309c14a78f9c2b71ffabad396f.dir
       size: 4168251
       nfiles: 23
