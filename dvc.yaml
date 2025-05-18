@@ -24,5 +24,17 @@ stages:
     deps:
     - data/preprocessed/air/
     outs:
-    - gx/uncommitted/data_docs/local_site:
+    - reports/validations:
+        persist: true
+
+  test_data:
+    cmd: |
+      poetry run python src/data/test_data.py
+    deps:
+    - data/preprocessed/air/
+    - src/data/test_data.py
+    outs:
+    - data/reference/air:
+        persist: true
+    - reports/tests:
         persist: true

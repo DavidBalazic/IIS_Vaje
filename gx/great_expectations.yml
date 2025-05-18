@@ -89,7 +89,7 @@ data_docs_sites:
     show_how_to_buttons: true
     store_backend:
       class_name: TupleFilesystemStoreBackend
-      base_directory: uncommitted/data_docs/local_site/
+      base_directory: ../reports/validations
     site_index_builder:
       class_name: DefaultSiteIndexBuilder
 

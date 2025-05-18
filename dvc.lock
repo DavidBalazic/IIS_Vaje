@@ -5,44 +5,67 @@ stages:
     deps:
     - path: src/data/fetch_air_data.py
       hash: md5
-      md5: 167e36f83aedbf896a6bf8e417d5d6b9
-      size: 926
+      md5: ba9d7ad34a88c85d72fdfdc92139280a
+      size: 956
     params:
       params.yaml:
         fetch.url: https://www.arso.gov.si/xml/zrak/ones_zrak_urni_podatki_7dni.xml
     outs:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: 2de17e22918dbf8468582d92882c1ce2
-      size: 1149986
+      md5: 9023dd6ca67bd5fb57cf2e82e0295999
+      size: 1149674
   preprocess:
     cmd: poetry run python src/data/preprocess_air_data.py
     deps:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: 2de17e22918dbf8468582d92882c1ce2
-      size: 1149986
+      md5: 9023dd6ca67bd5fb57cf2e82e0295999
+      size: 1149674
     - path: src/data/preprocess_air_data.py
       hash: md5
-      md5: 53ccf6de4ee529e1e5de6475b322013f
-      size: 2349
+      md5: 42ae7f8b5e44780e22bb64dd9b04984a
+      size: 2411
     outs:
     - path: data/preprocessed/air
       hash: md5
-      md5: 4d598b251bc74c4363cbf98e118547e8.dir
-      size: 531014
+      md5: 683495386514f1a17601dbe0bb77f8a3.dir
+      size: 574576
       nfiles: 23
   validate:
     cmd: "cd gx && poetry run python run_checkpoint.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: 4d598b251bc74c4363cbf98e118547e8.dir
-      size: 531014
+      md5: 683495386514f1a17601dbe0bb77f8a3.dir
+      size: 574576
       nfiles: 23
     outs:
-    - path: gx/uncommitted/data_docs/local_site
+    - path: reports/validations
       hash: md5
-      md5: 434faa3f7eada11d27772b36978aedac.dir
-      size: 4168251
+      md5: 3047350297722cee12c24850de8bbec4.dir
+      size: 4776801
+      nfiles: 36
+  test_data:
+    cmd: "poetry run python src/data/test_data.py\n"
+    deps:
+    - path: data/preprocessed/air/
+      hash: md5
+      md5: 683495386514f1a17601dbe0bb77f8a3.dir
+      size: 574576
       nfiles: 23
+    - path: src/data/test_data.py
+      hash: md5
+      md5: e30da3a08555a89f6e32896e0f6aa53b
+      size: 2863
+    outs:
+    - path: data/reference/air
+      hash: md5
+      md5: 430c4f31ecfa1953729c00ca16776119.dir
+      size: 198154
+      nfiles: 23
+    - path: reports/tests
+      hash: md5
+      md5: bf7583f0ec93103cd64192b8215ad648.dir
+      size: 90506680
+      nfiles: 21
