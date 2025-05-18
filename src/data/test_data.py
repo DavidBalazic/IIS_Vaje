@@ -20,7 +20,7 @@ for filename in os.listdir(preprocessed_dir):
         station_id = os.path.splitext(filename)[0]
         current_path = os.path.join(preprocessed_dir, filename)
         reference_path = os.path.join(reference_dir, filename)
-        report_path = os.path.join(report_dir, f"data_testing_report_{station_id}.html")
+        report_path = os.path.join(report_dir, f"{station_id}.html")
 
         current = pd.read_csv(current_path)
 
