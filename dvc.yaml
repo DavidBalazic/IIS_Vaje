@@ -38,3 +38,32 @@ stages:
         persist: true
     - reports/tests:
         persist: true
+
+  generate_report_index:
+    cmd: python scripts/generate_report_index.py
+    deps:
+      - scripts/generate_report_index.py
+      - reports/tests
+      - reports/validations
+    outs:
+      - reports/index.html
+
+  train:
+    cmd: |
+      poetry run python src/model/train.py
+    deps:
+    - src/model/preprocess.py
+    - src/model/train.py
+    - data/preprocessed/air/
+    - reports/validations        
+    - data/reference/air      
+    params:
+    - train.stations
+    - train.test_size
+    - train.random_state
+    - train.window_size
+    - train.target_col
+    outs:
+    - models/:
+        persist: true
+  

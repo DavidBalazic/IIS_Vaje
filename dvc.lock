@@ -13,15 +13,15 @@ stages:
     outs:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: fb269303496a15367f68d422cbb24a05
-      size: 1148773
+      md5: a025e437e57acd7bbb0d72be464ee951
+      size: 1148775
   preprocess:
     cmd: poetry run python src/data/preprocess_air_data.py
     deps:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: fb269303496a15367f68d422cbb24a05
-      size: 1148773
+      md5: a025e437e57acd7bbb0d72be464ee951
+      size: 1148775
     - path: src/data/preprocess_air_data.py
       hash: md5
       md5: 42ae7f8b5e44780e22bb64dd9b04984a
@@ -29,30 +29,30 @@ stages:
     outs:
     - path: data/preprocessed/air
       hash: md5
-      md5: 138c8e0b405194a8e0667dc8c6ef657f.dir
-      size: 693743
+      md5: f0b6c4441dd2a73a429c48e059860964.dir
+      size: 700298
       nfiles: 23
   validate:
     cmd: "cd gx && poetry run python run_checkpoint.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: 138c8e0b405194a8e0667dc8c6ef657f.dir
-      size: 693743
+      md5: f0b6c4441dd2a73a429c48e059860964.dir
+      size: 700298
       nfiles: 23
     outs:
     - path: reports/validations
       hash: md5
-      md5: cd0b3d0aa5b6eb43127ef675b67f1b05.dir
-      size: 4975381
-      nfiles: 41
+      md5: 3b1c1681ad06a165cf2a044f0d90424a.dir
+      size: 5033676
+      nfiles: 42
   test_data:
     cmd: "poetry run python src/data/test_data.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: 138c8e0b405194a8e0667dc8c6ef657f.dir
-      size: 693743
+      md5: f0b6c4441dd2a73a429c48e059860964.dir
+      size: 700298
       nfiles: 23
     - path: src/data/test_data.py
       hash: md5
@@ -61,11 +61,92 @@ stages:
     outs:
     - path: data/reference/air
       hash: md5
-      md5: 2ea043ac16a55350a4102c49620fa18e.dir
-      size: 249888
+      md5: 7d79ebc2bfacc27f1e4afb1d27e98050.dir
+      size: 250034
       nfiles: 23
     - path: reports/tests
       hash: md5
-      md5: a1415260c6edd1ae9572d7bbab805bfb.dir
-      size: 90434384
+      md5: 9c9d475a2009ccba17e3dc90465fba28.dir
+      size: 90437628
       nfiles: 21
+  generate_report_index:
+    cmd: python scripts/generate_report_index.py
+    deps:
+    - path: reports/tests
+      hash: md5
+      md5: 9c9d475a2009ccba17e3dc90465fba28.dir
+      size: 90437628
+      nfiles: 21
+    - path: reports/validations
+      hash: md5
+      md5: 3b1c1681ad06a165cf2a044f0d90424a.dir
+      size: 5033676
+      nfiles: 42
+    - path: scripts/generate_report_index.py
+      hash: md5
+      md5: 52acd30ad9c8c7b0ec89a022c20fa28e
+      size: 563
+    outs:
+    - path: reports/index.html
+      hash: md5
+      md5: 6d396ad71164dd2d5a668519ae602fc8
+      size: 1228
+  train:
+    cmd: "poetry run python src/model/train.py\n"
+    deps:
+    - path: data/preprocessed/air/
+      hash: md5
+      md5: f0b6c4441dd2a73a429c48e059860964.dir
+      size: 700298
+      nfiles: 23
+    - path: data/reference/air
+      hash: md5
+      md5: 7d79ebc2bfacc27f1e4afb1d27e98050.dir
+      size: 250034
+      nfiles: 23
+    - path: reports/validations
+      hash: md5
+      md5: 3b1c1681ad06a165cf2a044f0d90424a.dir
+      size: 5033676
+      nfiles: 42
+    - path: src/model/preprocess.py
+      hash: md5
+      md5: 74ea18323a0e5070b714fd8b883db4be
+      size: 1435
+    - path: src/model/train.py
+      hash: md5
+      md5: 405e44b8deb4fd51c376b49fd9d78203
+      size: 4989
+    params:
+      params.yaml:
+        train.random_state: 42
+        train.stations:
+        - E403
+        - E404
+        - E405
+        - E407
+        - E408
+        - E409
+        - E410
+        - E411
+        - E412
+        - E413
+        - E414
+        - E415
+        - E417
+        - E418
+        - E420
+        - E421
+        - E423
+        - E801
+        - E802
+        - E804
+        train.target_col: PM10
+        train.test_size: 312
+        train.window_size: 24
+    outs:
+    - path: models/
+      hash: md5
+      md5: 9d064ab603b44458d76d9ad9d7bfa98a.dir
+      size: 8137837
+      nfiles: 40
