@@ -5,118 +5,118 @@ stages:
     deps:
     - path: src/data/fetch_air_data.py
       hash: md5
-      md5: ba9d7ad34a88c85d72fdfdc92139280a
-      size: 956
+      md5: 167e36f83aedbf896a6bf8e417d5d6b9
+      size: 926
     params:
       params.yaml:
         fetch.url: https://www.arso.gov.si/xml/zrak/ones_zrak_urni_podatki_7dni.xml
     outs:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: a025e437e57acd7bbb0d72be464ee951
-      size: 1148775
+      md5: 6cbef2150eb5004e35e4c080a180a656
+      size: 1148717
   preprocess:
     cmd: poetry run python src/data/preprocess_air_data.py
     deps:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: a025e437e57acd7bbb0d72be464ee951
-      size: 1148775
+      md5: 6cbef2150eb5004e35e4c080a180a656
+      size: 1148717
     - path: src/data/preprocess_air_data.py
       hash: md5
-      md5: 42ae7f8b5e44780e22bb64dd9b04984a
-      size: 2411
+      md5: 53ccf6de4ee529e1e5de6475b322013f
+      size: 2349
     outs:
     - path: data/preprocessed/air
       hash: md5
-      md5: f0b6c4441dd2a73a429c48e059860964.dir
-      size: 700298
+      md5: e3a44ec028399f79245ca08d026e8f42.dir
+      size: 676235
       nfiles: 23
   validate:
     cmd: "cd gx && poetry run python run_checkpoint.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: f0b6c4441dd2a73a429c48e059860964.dir
-      size: 700298
+      md5: e3a44ec028399f79245ca08d026e8f42.dir
+      size: 676235
       nfiles: 23
     outs:
     - path: reports/validations
       hash: md5
-      md5: 3b1c1681ad06a165cf2a044f0d90424a.dir
-      size: 5033676
-      nfiles: 42
+      md5: 617e466e0dd608a91658b3560ddf3915.dir
+      size: 4186830
+      nfiles: 23
   test_data:
     cmd: "poetry run python src/data/test_data.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: f0b6c4441dd2a73a429c48e059860964.dir
-      size: 700298
+      md5: e3a44ec028399f79245ca08d026e8f42.dir
+      size: 676235
       nfiles: 23
     - path: src/data/test_data.py
       hash: md5
-      md5: 492087ee0a5966dafae5a2ca0cbe7f10
-      size: 2843
+      md5: ce938cab8df255a05146d6728ddd3784
+      size: 2767
     outs:
     - path: data/reference/air
       hash: md5
-      md5: 7d79ebc2bfacc27f1e4afb1d27e98050.dir
-      size: 250034
+      md5: 8d3ae877ee30561e37609344207f0af2.dir
+      size: 224869
       nfiles: 23
     - path: reports/tests
       hash: md5
-      md5: 9c9d475a2009ccba17e3dc90465fba28.dir
-      size: 90437628
+      md5: 36abcb96787cbccff75fab0491c44dda.dir
+      size: 90429090
       nfiles: 21
   generate_report_index:
     cmd: python scripts/generate_report_index.py
     deps:
     - path: reports/tests
       hash: md5
-      md5: 9c9d475a2009ccba17e3dc90465fba28.dir
-      size: 90437628
+      md5: 36abcb96787cbccff75fab0491c44dda.dir
+      size: 90429090
       nfiles: 21
     - path: reports/validations
       hash: md5
-      md5: 3b1c1681ad06a165cf2a044f0d90424a.dir
-      size: 5033676
-      nfiles: 42
+      md5: 617e466e0dd608a91658b3560ddf3915.dir
+      size: 4186830
+      nfiles: 23
     - path: scripts/generate_report_index.py
       hash: md5
-      md5: 52acd30ad9c8c7b0ec89a022c20fa28e
-      size: 563
+      md5: a020fd2bd8017ada2b2ec0c2cd2dfd13
+      size: 538
     outs:
     - path: reports/index.html
       hash: md5
-      md5: 6d396ad71164dd2d5a668519ae602fc8
-      size: 1228
+      md5: 1d4c011ee359c9a9969ce0fbe098f46d
+      size: 1217
   train:
     cmd: "poetry run python src/model/train.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: f0b6c4441dd2a73a429c48e059860964.dir
-      size: 700298
+      md5: e3a44ec028399f79245ca08d026e8f42.dir
+      size: 676235
       nfiles: 23
     - path: data/reference/air
       hash: md5
-      md5: 7d79ebc2bfacc27f1e4afb1d27e98050.dir
-      size: 250034
+      md5: 8d3ae877ee30561e37609344207f0af2.dir
+      size: 224869
       nfiles: 23
     - path: reports/validations
       hash: md5
-      md5: 3b1c1681ad06a165cf2a044f0d90424a.dir
-      size: 5033676
-      nfiles: 42
+      md5: 617e466e0dd608a91658b3560ddf3915.dir
+      size: 4186830
+      nfiles: 23
     - path: src/model/preprocess.py
       hash: md5
-      md5: 74ea18323a0e5070b714fd8b883db4be
-      size: 1435
+      md5: fc438b6223d1af062be3d512268ecaf2
+      size: 1393
     - path: src/model/train.py
       hash: md5
-      md5: 405e44b8deb4fd51c376b49fd9d78203
-      size: 4989
+      md5: 1eaf343ff5ad6ec8d4a647b5925a984a
+      size: 4853
     params:
       params.yaml:
         train.random_state: 42
@@ -147,6 +147,6 @@ stages:
     outs:
     - path: models/
       hash: md5
-      md5: 9d064ab603b44458d76d9ad9d7bfa98a.dir
-      size: 8137837
+      md5: dab14643203e0c3c79267898244de732.dir
+      size: 8138317
       nfiles: 40
