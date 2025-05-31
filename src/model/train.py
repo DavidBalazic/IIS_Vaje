@@ -44,12 +44,13 @@ tf.random.set_seed(random_state)
 
 # Define the model
 def build_model(input_shape):
-    model = Sequential()
-    model.add(LSTM(50, return_sequences=True, input_shape=input_shape))
-    model.add(Dropout(0.2))
-    model.add(LSTM(50, return_sequences=False))
-    model.add(Dropout(0.2))
-    model.add(Dense(1))
+    inputs = tf.keras.Input(shape=input_shape, name="input")
+    x = LSTM(50, return_sequences=True)(inputs)
+    x = Dropout(0.2)(x)
+    x = LSTM(50, return_sequences=False)(x)
+    x = Dropout(0.2)(x)
+    outputs = Dense(1)(x)
+    model = tf.keras.Model(inputs, outputs)
     model.compile(optimizer="adam", loss="mean_squared_error")
     return model
 
@@ -164,8 +165,7 @@ for station in stations:
 
         # Save the model
         os.makedirs("models", exist_ok=True)
-        model.save(f"models/model_{station}.keras")
-        mlflow.keras.log_model(model, artifact_path=f"model_{station}")
+        tf.keras.saving.save_model(model, f"models/model_{station}.keras")
         
         # Convert Keras model to ONNX and log it in MLflow
         input_signature = [tf.TensorSpec([None, window_size, 1], tf.float32, name="input")]
