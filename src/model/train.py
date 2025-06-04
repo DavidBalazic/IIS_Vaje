@@ -110,7 +110,7 @@ for station in stations:
         model = build_model(input_shape)
         
         # Enable MLflow autologging for TensorFlow
-        mlflow.tensorflow.autolog()
+        mlflow.tensorflow.autolog(log_models=False, log_input_examples=False, log_datasets=False)
 
         # Train the model
         early_stopping = EarlyStopping(monitor="val_loss", patience=5, restore_best_weights=True)
