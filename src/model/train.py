@@ -110,7 +110,7 @@ for station in stations:
         model = build_model(input_shape)
         
         # Enable MLflow autologging for TensorFlow
-        mlflow.tensorflow.autolog(log_models=False, log_input_examples=False, log_datasets=False)
+        # mlflow.tensorflow.autolog(log_models=False, log_input_examples=False, log_datasets=False)
 
         # Train the model
         early_stopping = EarlyStopping(monitor="val_loss", patience=5, restore_best_weights=True)
@@ -165,7 +165,7 @@ for station in stations:
 
         # Save the model
         os.makedirs("models", exist_ok=True)
-        tf.keras.saving.save_model(model, f"models/model_{station}.keras")
+        model.save(f"models/model_{station}.keras")
         
         # Convert Keras model to ONNX and log it in MLflow
         input_signature = [tf.TensorSpec([None, window_size, 1], tf.float32, name="input")]
