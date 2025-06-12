@@ -27,17 +27,17 @@ stages:
     - reports/validations:
         persist: true
 
-  # test_data:
-  #   cmd: |
-  #     poetry run python src/data/test_data.py
-  #   deps:
-  #   - data/preprocessed/air/
-  #   - src/data/test_data.py
-  #   outs:
-  #   - data/reference/air:
-  #       persist: true
-  #   - reports/tests:
-  #       persist: true
+  test_data:
+    cmd: |
+      poetry run python src/data/test_data.py
+    deps:
+    - data/preprocessed/air/
+    - src/data/test_data.py
+    outs:
+    - data/reference/air:
+        persist: true
+    - reports/tests:
+        persist: true
 
   generate_report_index:
     cmd: python scripts/generate_report_index.py
