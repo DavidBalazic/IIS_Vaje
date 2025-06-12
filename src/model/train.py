@@ -32,7 +32,8 @@ target_col = params["target_col"]
 random_state = params["random_state"]
 
 # MLFlow init
-dagshub.init(repo_owner='DavidBalazic', repo_name='IIS_Vaje', mlflow=True)
+# dagshub.init(repo_owner='DavidBalazic', repo_name='IIS_Vaje', mlflow=True)
+mlflow.set_tracking_uri('https://dagshub.com/DavidBalazic/IIS_Vaje.mlflow')
 
 os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("DAGSHUB_USERNAME")
 os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("DAGSHUB_TOKEN")

@@ -3,7 +3,7 @@ fetch:
 
 train:
   #stations: [E403, E404, E405, E407, E408, E409, E410, E411, E412, E413, E414, E415, E417, E418, E420, E421, E423, E801, E802, E804]
-  stations: [E403, E404]
+  stations: [E403]
   test_size: 312
   window_size: 24
   target_col: "PM10"
