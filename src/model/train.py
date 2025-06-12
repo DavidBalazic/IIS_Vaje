@@ -34,6 +34,9 @@ random_state = params["random_state"]
 # MLFlow init
 dagshub.init(repo_owner='DavidBalazic', repo_name='IIS_Vaje', mlflow=True)
 
+os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("DAGSHUB_USERNAME")
+os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("DAGSHUB_TOKEN")
+
 # Set PYTHONHASHSEED environment variable for reproducibility
 os.environ["PYTHONHASHSEED"] = str(random_state)
 

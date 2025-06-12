@@ -13,15 +13,15 @@ stages:
     outs:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: fa2d7c72b8a7e913a27fd93937d4c4d2
-      size: 1152060
+      md5: 0bdc84b34c87878c77cdbbfbb9badb5b
+      size: 1152567
   preprocess:
     cmd: poetry run python src/data/preprocess_air_data.py
     deps:
     - path: data/raw/air/air_data.xml
       hash: md5
-      md5: fa2d7c72b8a7e913a27fd93937d4c4d2
-      size: 1152060
+      md5: 0bdc84b34c87878c77cdbbfbb9badb5b
+      size: 1152567
     - path: src/data/preprocess_air_data.py
       hash: md5
       md5: 42ae7f8b5e44780e22bb64dd9b04984a
@@ -29,23 +29,23 @@ stages:
     outs:
     - path: data/preprocessed/air
       hash: md5
-      md5: 7668d5407b5030f86011f2606e1316d3.dir
-      size: 873089
+      md5: 5e1e36076a391fff3aa18f3413a42481.dir
+      size: 887110
       nfiles: 23
   validate:
     cmd: "cd gx && poetry run python run_checkpoint.py\n"
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: 7668d5407b5030f86011f2606e1316d3.dir
-      size: 873089
+      md5: 5e1e36076a391fff3aa18f3413a42481.dir
+      size: 887110
       nfiles: 23
     outs:
     - path: reports/validations
       hash: md5
-      md5: fa0e826708af86594a63a0470645f0cb.dir
-      size: 5448452
-      nfiles: 50
+      md5: b642ebd00076e44cc9c1c46e624d18eb.dir
+      size: 5500299
+      nfiles: 51
   test_data:
     cmd: "poetry run python src/data/test_data.py\n"
     deps:
@@ -79,9 +79,9 @@ stages:
       nfiles: 21
     - path: reports/validations
       hash: md5
-      md5: fa0e826708af86594a63a0470645f0cb.dir
-      size: 5448452
-      nfiles: 50
+      md5: b642ebd00076e44cc9c1c46e624d18eb.dir
+      size: 5500299
+      nfiles: 51
     - path: scripts/generate_report_index.py
       hash: md5
       md5: 52acd30ad9c8c7b0ec89a022c20fa28e
@@ -96,8 +96,8 @@ stages:
     deps:
     - path: data/preprocessed/air/
       hash: md5
-      md5: 7668d5407b5030f86011f2606e1316d3.dir
-      size: 873089
+      md5: 5e1e36076a391fff3aa18f3413a42481.dir
+      size: 887110
       nfiles: 23
     - path: data/reference/air
       hash: md5
@@ -106,47 +106,29 @@ stages:
       nfiles: 23
     - path: reports/validations
       hash: md5
-      md5: fa0e826708af86594a63a0470645f0cb.dir
-      size: 5448452
-      nfiles: 50
+      md5: b642ebd00076e44cc9c1c46e624d18eb.dir
+      size: 5500299
+      nfiles: 51
     - path: src/model/preprocess.py
       hash: md5
       md5: 74ea18323a0e5070b714fd8b883db4be
       size: 1435
     - path: src/model/train.py
       hash: md5
-      md5: ef29ea5a5e7089939c73ca28eab78552
-      size: 7198
+      md5: cb006758b3ca669cea2f5278d6cd9b72
+      size: 7341
     params:
       params.yaml:
         train.random_state: 42
         train.stations:
         - E403
         - E404
-        - E405
-        - E407
-        - E408
-        - E409
-        - E410
-        - E411
-        - E412
-        - E413
-        - E414
-        - E415
-        - E417
-        - E418
-        - E420
-        - E421
-        - E423
-        - E801
-        - E802
-        - E804
         train.target_col: PM10
         train.test_size: 312
         train.window_size: 24
     outs:
     - path: models/
       hash: md5
-      md5: 7f197edec99bb0da3ec0956dc048b226.dir
+      md5: 8a49cefaebc971380e80b1ec4597f408.dir
       size: 8194476
       nfiles: 40
